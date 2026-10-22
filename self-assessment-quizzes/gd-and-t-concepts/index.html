@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-V7VVFX9X21"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-V7VVFX9X21');
+  </script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A 20-question interactive GD&T concepts quiz with instant scoring and explanations, covering datums, tolerance zones, material condition, position, profile, and runout.">
+  <meta name="theme-color" content="#fdf6ec">
+  <title>GD&amp;T Concepts Quiz · CAD</title>
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <link rel="stylesheet" href="quiz.css">
+  <script src="../../assets/js/main.js" defer></script>
+  <script src="quiz.js" defer></script>
+</head>
+<body class="gdt-quiz-page">
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <header class="page-header">
+    <nav class="top-nav" aria-label="Main navigation">
+      <a class="brand" href="../../index.html" aria-label="CAD home"><span class="brand-mark" aria-hidden="true"></span><span class="brand-copy"><strong>CAD</strong></span></a>
+      <div class="nav-links">
+        <a href="../../cad-modules/index.html">Mathematical Foundations</a>
+        <a href="../../programming-modules/index.html">Programming Modules</a>
+        <a href="../index.html" aria-current="page">Self Assessment</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content" class="gdt-quiz-shell">
+    <header class="gdt-quiz-intro">
+      <ol class="breadcrumb" aria-label="Breadcrumb"><li><a href="../../index.html">Home</a></li><li><a href="../index.html">Self Assessment</a></li><li aria-current="page">GD&amp;T Concepts Quiz</li></ol>
+      <p class="eyebrow">Self assessment · Geometric dimensioning and tolerancing</p>
+      <h1>GD&amp;T <em>Concepts Quiz</em></h1>
+      <p>Choose one answer for each question, then check your work. You can change an answer and check again. Explanations appear after scoring.</p>
+      <div class="gdt-quiz-meta"><span>20 questions</span><span>Four topics</span><span>Immediate feedback</span></div>
+    </header>
+
+    <aside class="gdt-quiz-conventions" aria-labelledby="conventions-title">
+      <h2 id="conventions-title">Conventions</h2>
+      <p>Use ASME Y14.5 style interpretations. Dimensions are in millimetres. ⌀ means a diametrical tolerance zone; Ⓜ means maximum material condition (MMC). Basic dimensions are theoretically exact. Numerical examples assume idealized features and no measurement uncertainty.</p>
+    </aside>
+
+    <form id="gdt-quiz-form" novalidate>
+      <div id="gdt-questions" class="gdt-questions"></div>
+      <div class="gdt-quiz-actions">
+        <button class="button primary" type="submit">Check answers</button>
+        <button class="button secondary" type="reset">Start over</button>
+      </div>
+    </form>
+    <section id="gdt-quiz-result" class="gdt-quiz-result" aria-live="polite" aria-atomic="true" tabindex="-1" hidden></section>
+    <noscript><p class="gdt-quiz-noscript">Enable JavaScript to take the interactive quiz. You can still study the <a href="../../cad-modules/cad-workflow/index.html#gd-and-t">GD&amp;T lesson</a>.</p></noscript>
+
+    <section class="gdt-quiz-reading" aria-labelledby="next-title">
+      <h2 id="next-title">Review and go further</h2>
+      <p>Review the <a href="../../cad-modules/cad-workflow/index.html#gd-and-t">GD&amp;T lesson and interactive lab</a>, then work through the <a href="../gd-and-t-question-bank/index.html">30-question GD&amp;T bank</a>. The <a href="../../cad-modules/references/index.html#ref-36">references page</a> links to the ASME Y14.5 standard record. This teaching quiz simplifies inspection and does not replace a complete drawing specification.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p><strong>CAD</strong> · GD&amp;T Concepts Quiz</p>
+    <ul class="footer-nav" aria-label="Footer navigation"><li><a href="../../index.html">Home</a></li><li><a href="../index.html">Self Assessment</a></li><li><a href="../../cad-modules/cad-workflow/index.html#gd-and-t">GD&amp;T Lesson</a></li></ul>
+    <p><a href="../../cad-modules/references/index.html#licensing">Licensing and Attributions</a> · Created by Murali Palla · <span data-year>2026</span></p>
+  </footer>
+</body>
+</html>

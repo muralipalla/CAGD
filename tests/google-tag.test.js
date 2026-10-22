@@ -23,7 +23,12 @@ test("every website page loads the Google tag exactly once", () => {
     ...htmlFiles(path.join(root, "self-assessment-quizzes"))
   ];
 
-  assert.equal(pages.length, 43);
+  for (const page of [
+    "self-assessment-quizzes/gd-and-t-concepts/index.html",
+    "self-assessment-quizzes/gd-and-t-question-bank/index.html"
+  ]) {
+    assert.ok(pages.includes(path.join(root, page)), `${page}: missing from the website`);
+  }
   for (const page of pages) {
     const html = fs.readFileSync(page, "utf8");
     const label = path.relative(root, page);

@@ -1,0 +1,702 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[margin=17mm,headheight=14pt]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb}
+\usepackage{array,booktabs,longtable,tabularx}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{microtype}
+\usepackage{lastpage}
+
+\definecolor{navy}{RGB}{38,48,92}
+\definecolor{softgray}{RGB}{242,243,247}
+\definecolor{darkgray}{RGB}{70,70,70}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt}
+\setlist[enumerate]{leftmargin=8mm,itemsep=2.5pt,topsep=4pt}
+\setlist[enumerate,2]{leftmargin=8mm,itemsep=1pt,topsep=1pt}
+\renewcommand{\arraystretch}{1.14}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\small GD\&T Question Bank}
+\rhead{\small 10 marks per question}
+\cfoot{\small Page \thepage\ of \pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\newcommand{\dia}{\ensuremath{\varnothing}}
+\newcommand{\MMC}{\raisebox{0.08ex}{\textcircled{\scriptsize M}}}
+\newcommand{\MMB}{\MMC}
+\newcommand{\LMC}{\raisebox{0.08ex}{\textcircled{\scriptsize L}}}
+\newcommand{\PZT}{\raisebox{0.08ex}{\textcircled{\scriptsize P}}}
+\newcommand{\fc}[1]{%
+  \fbox{\rule[-0.55ex]{0pt}{2.45ex}\hspace{0.32em}#1\hspace{0.32em}}%
+}
+\newcommand{\qmarks}[1]{\unskip\penalty0\hspace*{\fill}\mbox{\textcolor{darkgray}{\textbf{[#1 mark\ifnum#1=1\else s\fi]}}}}
+\newcommand{\leveltag}[1]{%
+  \fcolorbox{navy}{softgray}{\strut\small\bfseries\color{navy}#1}%
+}
+\newcommand{\qhead}[2]{%
+  \clearpage
+  \noindent\begin{tabularx}{\linewidth}{@{}Xr@{}}
+  {\Large\bfseries\color{navy}Question \thequestion: #1} & \leveltag{#2}
+  \end{tabularx}\par\vspace{-1mm}
+  \noindent\rule{\linewidth}{0.6pt}\par\vspace{1mm}
+}
+\newcounter{question}
+\newcommand{\question}[2]{\stepcounter{question}\qhead{#1}{#2}}
+\newcommand{\instructionbox}[1]{%
+  \begin{center}
+  \fcolorbox{navy}{softgray}{\begin{minipage}{0.94\linewidth}\small #1\end{minipage}}
+  \end{center}
+}
+
+\begin{document}
+
+\begin{titlepage}
+\thispagestyle{empty}
+\vspace*{28mm}
+\begin{center}
+{\Huge\bfseries\color{navy}GD\&T Question Bank}\\[5mm]
+{\Large 30 Questions with Graded Difficulty}\\[12mm]
+\rule{0.78\linewidth}{0.8pt}\\[10mm]
+{\large Each question: \textbf{10 marks}}\\[2mm]
+{\large Suggested working time: \textbf{25--30 minutes per question}}\\[14mm]
+\begin{tabular}{rl}
+Level I: & Foundation and interpretation (Questions 1--10)\\[2mm]
+Level II: & Applied analysis and assembly (Questions 11--20)\\[2mm]
+Level III: & Advanced synthesis and inspection (Questions 21--30)
+\end{tabular}
+\vfill
+{\large Prepared for classroom tests, tutorials, and examinations}
+\end{center}
+\end{titlepage}
+\pagenumbering{arabic}
+\raggedbottom
+
+\section*{Instructions and conventions}
+\instructionbox{%
+Use ASME Y14.5-2018 (R2024) conventions unless a question states a simplifying assumption. All dimensions are in millimetres. Basic dimensions are theoretically exact. Unless stated otherwise, a quoted measured feature size is its actual mating size and all local sizes satisfy their limits. For coordinate-based position calculations, assume the stated offsets describe a straight axis parallel to its nominal direction unless tilt is specified. Show the principal steps for every numerical decision and state \emph{pass} or \emph{fail}. The boxed feature-control frames are teaching schematics: characteristic names replace geometric symbols. A circled M after a tolerance denotes MMC; after a datum letter it denotes MMB.}
+
+\begin{itemize}[leftmargin=7mm,itemsep=2pt]
+\item A diametrical position error based on coordinate offsets is
+\[
+T_{\mathrm{pos}}=2\sqrt{(\Delta x)^2+(\Delta y)^2}.
+\]
+\item Internal feature at MMC: bonus $=$ actual mating size $-$ MMC size.
+\item External feature at MMC: bonus $=$ MMC size $-$ actual mating size.
+\item Unless specifically stated otherwise, ignore measurement uncertainty, surface texture, elastic deformation, and thermal expansion.
+\end{itemize}
+
+\section*{Difficulty and coverage map}
+\begingroup
+\renewcommand{\arraystretch}{1.00}
+\small
+\begin{longtable}{@{}c p{0.39\linewidth} p{0.34\linewidth} c@{}}
+\toprule
+\textbf{Q.} & \textbf{Principal topic} & \textbf{Dominant skill} & \textbf{Level}\\
+\midrule
+\endhead
+1 & Position at MMC & Interpretation and acceptance & I\\
+2 & Flatness and line straightness & Minimum-zone calculations & I\\
+3 & Axis straightness at MMC & Bonus tolerance and virtual condition & I\\
+4 & Axis perpendicularity & Orientation-zone analysis & I\\
+5 & Datum precedence & Constraint and set-up reasoning & I\\
+6 & Rule 1 and circularity & Size-form interaction & I\\
+7 & Unequally disposed profile zone & Boundary and process reasoning & I\\
+8 & Circular and total runout & Indicator-data interpretation & I\\
+9 & Functional gaging of a hole pattern & Virtual-condition decisions & I\\
+10 & Basic versus plus/minus dimensions & Drawing consistency & I\\
+11 & Datum shift at MMB & Boundary mobility and acceptance & II\\
+12 & Projected tolerance zone & Fastener-axis projection & II\\
+13 & Composite position & Pattern location and refinement & II\\
+14 & Composite versus stacked controls & Specification comparison & II\\
+15 & Fixed-fastener assembly & Worst-case tolerance allocation & II\\
+16 & Floating-fastener assembly & Relative pattern displacement & II\\
+17 & Simultaneous requirement & Common datum set-up & II\\
+18 & Datum targets on a casting & Constrained alignment and profile & II\\
+19 & Runout diagnosis & Circumferential and axial error & II\\
+20 & Coaxial bores & Position versus runout & II\\
+21 & Sequential datum shift & Mixed slot and cylindrical datums & III\\
+22 & Composite position with varying sizes & Per-feature bonus assessment & III\\
+23 & Functional gage design & Simulators and virtual boundaries & III\\
+24 & Assembly over a temperature range & Functional tolerance budgeting & III\\
+25 & Profile and machining stock & Feasible-process interval & III\\
+26 & Position of a slot & Non-cylindrical feature of size & III\\
+27 & Multiple datum reference frames & Functional relationship and inspection & III\\
+28 & Conformance and process capability & Normalized tolerance utilization & III\\
+29 & Critique of an over-controlled drawing & Error diagnosis and redesign & III\\
+30 & Bearing-housing capstone & Complete GD\&T scheme synthesis & III\\
+\bottomrule
+\end{longtable}
+\endgroup
+
+%====================================================================
+\question{Position at MMC}{Level I}
+
+A plate contains a through-hole of size \dia$12.00$--\dia$12.25$. Its location is defined by basic dimensions and controlled by
+\begin{center}
+\fc{\textsc{Position}}\,\fc{\dia$0.20$ \MMC}\,\fc{A}\,\fc{B}\,\fc{C}.
+\end{center}
+The measured hole size is \dia$12.16$, and the axis is displaced from true position by $\Delta x=+0.12$ and $\Delta y=-0.10$.
+
+\begin{enumerate}[label=(\alph*)]
+\item Describe the shape, size, and orientation of the specified tolerance zone. \qmarks{2}
+\item Determine the hole MMC, LMC, bonus tolerance, and total available position tolerance. \qmarks{2}
+\item Calculate the diametrical true-position error from the coordinate deviations. \qmarks{3}
+\item Decide whether the hole conforms and state the maximum permissible radial axis displacement at the measured size. \qmarks{2}
+\item Explain why the dimensions locating the hole should be basic rather than plus/minus toleranced. \qmarks{1}
+\end{enumerate}
+
+%====================================================================
+\question{Flatness and straightness}{Level I}
+
+A machined face is controlled by flatness $0.070$. The middle longitudinal line element is additionally controlled by straightness $0.035$. A CMM reports the following deviations from an arbitrary reference plane:
+
+\begin{center}
+\begin{tabular}{c*{4}{r}}
+\toprule
+ & $x_1$ & $x_2$ & $x_3$ & $x_4$\\
+\midrule
+$y_1$ & $+0.018$ & $+0.031$ & $+0.026$ & $+0.011$\\
+$y_2$ & $-0.006$ & $+0.022$ & $+0.040$ & $+0.019$\\
+$y_3$ & $-0.021$ & $-0.004$ & $+0.015$ & $+0.008$\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Assume that the reported values are already expressed relative to the appropriate minimum-zone orientations.
+
+\begin{enumerate}[label=(\alph*)]
+\item Calculate the minimum separation of two parallel planes required to contain all measured points and assess flatness. \qmarks{3}
+\item Calculate the straightness error of the middle line element $y_2$ and assess it. \qmarks{2}
+\item Explain how the surface can pass one control and fail the other. \qmarks{2}
+\item State whether either control requires a datum and justify your answer. \qmarks{1}
+\item Recommend one additional inspection path that would reduce the risk of missing a local form defect. \qmarks{2}
+\end{enumerate}
+
+%====================================================================
+\question{Axis straightness at MMC}{Level I}
+
+A shaft has size \dia$19.90$--\dia$20.00$ and the derived median line is controlled by
+\begin{center}
+\fc{\textsc{Straightness}}\,\fc{\dia$0.08$ \MMC}.
+\end{center}
+For one part, the actual mating size is \dia$19.94$, and the smallest cylindrical zone that contains the derived median line has diameter $0.125$.
+
+\begin{enumerate}[label=(\alph*)]
+\item Identify the shaft MMC and calculate the bonus straightness tolerance. \qmarks{2}
+\item Determine the total available straightness tolerance and assess the part. \qmarks{2}
+\item Calculate the virtual-condition diameter of the shaft. \qmarks{2}
+\item Reassess the same measured axis error if the actual mating size were \dia$19.99$. \qmarks{2}
+\item Distinguish axis straightness from straightness of a surface line element. \qmarks{2}
+\end{enumerate}
+
+%====================================================================
+\question{Perpendicularity of a hole axis}{Level I}
+
+A \dia$8.00$--\dia$8.25$ hole passes through a $30$-mm-thick bracket. Its axis is controlled by
+\begin{center}
+\fc{\textsc{Perpendicularity}}\,\fc{\dia$0.12$ \MMC}\,\fc{A}.
+\end{center}
+The measured hole size is \dia$8.18$. The CMM determines that a cylindrical zone of diameter $0.24$, oriented perpendicular to datum $A$, is required to contain the complete derived axis.
+
+\begin{enumerate}[label=(\alph*)]
+\item Calculate the bonus and total perpendicularity tolerance. \qmarks{2}
+\item Decide whether the feature conforms. \qmarks{2}
+\item Estimate the corresponding angular error if a straight axis has an end-to-end lateral displacement of $0.24$ over the thickness. \qmarks{2}
+\item Reassess conformance if the hole size were only \dia$8.05$. \qmarks{2}
+\item Explain why this orientation control does not, by itself, locate the hole axis in the plane of datum $A$. \qmarks{2}
+\end{enumerate}
+
+%====================================================================
+\question{Datum precedence and constraints}{Level I}
+
+A rectangular component uses the bottom face as datum $A$, a long side face as datum $B$, and an adjacent end face as datum $C$. Let $A$ nominally coincide with the $xy$ plane, $B$ with the $xz$ plane, and $C$ with the $yz$ plane.
+
+\begin{enumerate}[label=(\alph*)]
+\item List the six rigid-body degrees of freedom and identify which are constrained by primary datum $A$. \qmarks{3}
+\item Identify the additional degrees of freedom constrained by secondary datum $B$ and tertiary datum $C$. \qmarks{2}
+\item Describe a practical 3--2--1 inspection fixture for establishing this datum reference frame. \qmarks{2}
+\item Explain how interchanging $B$ and $C$ can change inspection results when the two side faces are not perfectly perpendicular. \qmarks{2}
+\item State one functional reason for selecting the long side as the secondary datum. \qmarks{1}
+\end{enumerate}
+
+%====================================================================
+\question{Rule 1 and circularity}{Level I}
+
+A shaft is specified as \dia$24.90$--\dia$25.00$ with no general independency note. CMM inspection gives local diameters between \dia$24.93$ and \dia$24.99$, but the minimum circumscribed cylinder enclosing the complete surface has diameter \dia$25.03$. At the worst cross-section, the minimum-zone circularity error is $0.038$.
+
+\begin{enumerate}[label=(\alph*)]
+\item Determine whether the local size measurements satisfy the size limits. \qmarks{2}
+\item Apply the perfect-form-at-MMC envelope requirement and decide whether the shaft conforms. \qmarks{3}
+\item If circularity $0.040$ were separately specified, assess that control. \qmarks{2}
+\item Explain why passing circularity would not cancel the envelope violation. \qmarks{2}
+\item Assuming a circular local section concentric with the envelope, state the diametrical and radial clearance from a local \dia$24.94$ section to the \dia$25.00$ MMC envelope. \qmarks{1}
+\end{enumerate}
+
+%====================================================================
+\question{Unequally disposed profile}{Level I}
+
+A cast surface is controlled by surface profile $0.80$ relative to $A|B|C$. The zone is explicitly disposed so that $0.20$ lies outside the true profile and $0.60$ lies inside it. Positive deviation denotes excess material outside the true profile. Inspection gives a maximum deviation of $+0.17$ and a minimum deviation of $-0.54$. For the coating questions, assume the same profile requirement applies to the coated surface and the coating thickness is uniform in the local surface-normal direction.
+
+\begin{enumerate}[label=(\alph*)]
+\item State the upper and lower profile boundaries. \qmarks{2}
+\item Assess the as-cast surface. \qmarks{2}
+\item A coating adds a uniform outward thickness of $0.10$. Determine the new extreme deviations and reassess the part. \qmarks{2}
+\item Calculate the maximum uniform coating thickness that can be added without violating the profile requirement. \qmarks{2}
+\item Determine whether the original surface would pass an equally disposed profile tolerance of $0.80$. \qmarks{2}
+\end{enumerate}
+
+%====================================================================
+\question{Circular and total runout}{Level I}
+
+Radial indicator readings are taken with one unchanged indicator zero while a cylindrical land is rotated about datum axis $A$. The values capture the extrema at the two sampled axial sections; they do not establish what happens between those sections.
+
+\begin{center}
+\small
+\begin{tabular}{c*{8}{r}}
+\toprule
+ & $0^\circ$ & $45^\circ$ & $90^\circ$ & $135^\circ$ & $180^\circ$ & $225^\circ$ & $270^\circ$ & $315^\circ$\\
+\midrule
+$Z_1$ & $+.012$ & $+.027$ & $+.041$ & $+.033$ & $+.006$ & $-.009$ & $-.014$ & $-.001$\\
+$Z_2$ & $+.020$ & $+.031$ & $+.045$ & $+.038$ & $+.016$ & $+.001$ & $-.003$ & $+.008$\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{enumerate}[label=(\alph*)]
+\item Calculate circular runout at each section and assess a circular-runout tolerance of $0.050$. \qmarks{4}
+\item Calculate the observed overall indicator range across the two measured sections and compare it with a total-runout tolerance of $0.060$. \qmarks{2}
+\item Explain why the readings must not be independently recentered at each section when datum axis $A$ is specified. \qmarks{2}
+\item Name one geometric error that can contribute to circular runout, and state what additional inspection is needed before declaring the complete land conforming for total runout. \qmarks{2}
+\end{enumerate}
+
+%====================================================================
+\question{Functional gaging of holes}{Level I}
+
+Four holes have size \dia$10.00$--\dia$10.25$ and position
+\begin{center}
+\fc{\textsc{Position}}\,\fc{\dia$0.25$ \MMC}\,\fc{A}\,\fc{B}\,\fc{C}.
+\end{center}
+CMM results, all evaluated in the same datum reference frame, are:
+
+\begin{center}
+\begin{tabular}{c c c}
+\toprule
+Hole & Actual size & Required position-zone diameter\\
+\midrule
+1 & $10.04$ & $0.22$\\
+2 & $10.12$ & $0.34$\\
+3 & $10.18$ & $0.47$\\
+4 & $10.25$ & $0.50$\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{enumerate}[label=(\alph*)]
+\item Calculate the hole virtual condition and the corresponding fixed-gage pin diameter. \qmarks{2}
+\item For each hole, calculate the available position tolerance and state pass or fail. \qmarks{6}
+\item State the acceptance decision for the complete four-hole pattern. \qmarks{1}
+\item Explain the functional meaning of bonus tolerance in this application. \qmarks{1}
+\end{enumerate}
+
+%====================================================================
+\question{Basic and coordinate dimensions}{Level I}
+
+A drawing locates a \dia$10.00$--\dia$10.20$ hole at basic coordinates $X=50$ and $Y=30$, controls its position by \dia$0.20$ at MMC relative to $A|B|C$, and also shows $50\pm0.05$ and $30\pm0.05$ for the same coordinates. The measured hole size is \dia$10.10$, and its centre is at $(50.08,29.94)$.
+
+\begin{enumerate}[label=(\alph*)]
+\item Identify the specification conflict created by the two coordinate schemes. \qmarks{2}
+\item Calculate the true-position error and assess the hole using the positional tolerance. \qmarks{3}
+\item Assess the same location using the plus/minus coordinate dimensions. \qmarks{2}
+\item Rewrite the dimensioning strategy so that the location is controlled unambiguously. \qmarks{2}
+\item Explain why rectangular coordinate limits do not define the same acceptance boundary as a cylindrical position zone. \qmarks{1}
+\end{enumerate}
+
+%====================================================================
+\question{Datum shift at MMB}{Level II}
+
+A controlled hole $H$ has size \dia$10.00$--\dia$10.25$ and position
+\begin{center}
+\fc{\textsc{Position}}\,\fc{\dia$0.20$ \MMC}\,\fc{A}\,\fc{B \MMB}\,\fc{C}.
+\end{center}
+Datum feature $B$ is an internal cylindrical hole of size \dia$20.00$--\dia$20.20$. For this problem, its maximum-material boundary is \dia$20.00$. The actual mating size of $B$ is \dia$20.14$. Hole $H$ measures \dia$10.10$ and has coordinate offsets $\Delta x=0.18$, $\Delta y=0.06$. Assume the available datum shift can act in the most favourable radial direction.
+
+\begin{enumerate}[label=(\alph*)]
+\item Calculate the total position tolerance available from the size of hole $H$ alone. \qmarks{2}
+\item Calculate the maximum radial datum shift available from datum feature $B$. \qmarks{2}
+\item Assess the controlled hole without using datum shift. \qmarks{2}
+\item Apply the maximum useful shift, calculate the residual radial and diametrical position errors, and reassess the feature. \qmarks{3}
+\item State why datum shift is not an additional manufacturing error allowance on datum feature $B$. \qmarks{1}
+\end{enumerate}
+
+%====================================================================
+\question{Projected tolerance zone}{Level II}
+
+A threaded hole in an $8$-mm-thick bracket must accept a long stud. The mounting face is datum $A$, and basic dimensions locate the hole from $B$ and $C$. Its straight axis is controlled by the schematic projected-zone frame
+\begin{center}
+\fc{\textsc{Position}}\,\fc{\dia$0.30$ \PZT\ $25$}\,\fc{A}\,\fc{B}\,\fc{C}.
+\end{center}
+The cylindrical zone projects $25$ above the mounting face. At that face, the axis has an offset vector $(0.04,0.03)$. Due to tilt, the additional displacement over the projected height is $(0.16,-0.04)$. Assume a straight axis, so its radial offset varies linearly over the projection.
+
+\begin{enumerate}[label=(\alph*)]
+\item Calculate the resultant radial axis displacement at the top of the projected zone. \qmarks{3}
+\item Determine whether the axis lies inside the projected tolerance cylinder. \qmarks{2}
+\item If the axis were centred at the mounting face, calculate the maximum permissible angular tilt over the $25$-mm projection. \qmarks{2}
+\item If a radial offset of $0.05$ already exists at the mounting face and tilt occurs in the same direction, calculate the remaining permissible tilt angle. \qmarks{2}
+\item State the functional problem that a projected tolerance zone is intended to prevent. \qmarks{1}
+\end{enumerate}
+
+%====================================================================
+\question{Composite position}{Level II}
+
+A four-hole pattern has hole size \dia$10.00$--\dia$10.20$ and the composite control
+\begin{center}
+\fc{\textsc{Position}}\,\fc{\dia$0.40$ \MMC}\,\fc{A}\,\fc{B}\,\fc{C}\\[-0.5mm]
+\hspace{16mm}\fc{\dia$0.15$ \MMC}\,\fc{A}.
+\end{center}
+All four holes initially measure \dia$10.10$. CMM evaluation using a single common framework for all holes in each segment reports that the upper pattern-locating zones each require at most \dia$0.46$, while the lower feature-relating zones each require at most \dia$0.22$. Do not fit each hole independently.
+
+\begin{enumerate}[label=(\alph*)]
+\item Calculate the available upper- and lower-segment tolerances at the measured hole size. \qmarks{2}
+\item Assess both segments and hence the pattern. \qmarks{2}
+\item One hole is later found to measure only \dia$10.02$. Reassess that hole if its required upper and lower zones are both the stated maxima, $0.46$ and $0.22$, while the common frameworks remain fixed. \qmarks{2}
+\item Describe the in-plane mobility permitted to the refined pattern by a lower segment that repeats only datum $A$. \qmarks{2}
+\item Explain why the lower segment controls hole-to-hole relationships more directly than the location of the pattern relative to $B$ and $C$. \qmarks{2}
+\end{enumerate}
+
+%====================================================================
+\question{Composite versus stacked position}{Level II}
+
+Consider two alternative specifications for the same hole pattern.
+
+\textbf{Scheme 1: composite control}
+\begin{center}
+\fc{\textsc{Position}}\,\fc{\dia$0.50$ \MMC}\,\fc{A}\,\fc{B}\,\fc{C}\\[-0.5mm]
+\hspace{16mm}\fc{\dia$0.15$ \MMC}\,\fc{A}\,\fc{B}.
+\end{center}
+
+\textbf{Scheme 2: two separate single-segment controls}
+\begin{center}
+\fc{\textsc{Position}}\,\fc{\dia$0.50$ \MMC}\,\fc{A}\,\fc{B}\,\fc{C}\\[1mm]
+\fc{\textsc{Position}}\,\fc{\dia$0.15$ \MMC}\,\fc{A}\,\fc{B}.
+\end{center}
+
+\begin{enumerate}[label=(\alph*)]
+\item Explain the principal difference between the lower composite segment and the second single-segment control. \qmarks{3}
+\item Which scheme better allows tight hole-to-hole spacing while retaining in-plane pattern float from both $B$ and $C$ within the upper-segment limits? Justify. \qmarks{2}
+\item Explain the effect of repeating datums $A$ and $B$ in the lower composite segment. \qmarks{2}
+\item State how the two schemes would differ during CMM evaluation. \qmarks{2}
+\item Give one manufacturing situation in which Scheme 2 would be intentionally preferred. \qmarks{1}
+\end{enumerate}
+
+%====================================================================
+\question{Fixed-fastener assembly}{Level II}
+
+A cover is attached to a base by fixed M8 fasteners. The fastener maximum shank diameter is \dia$8.00$, and the cover clearance holes have MMC size \dia$8.50$. The threaded-hole pattern in the base and the clearance-hole pattern in the cover are both position-controlled relative to functionally equivalent datum systems. Assume the fasteners follow the threaded-hole axes, their projected zones cover the cover thickness, and thread clearance, tilt, and assembly deformation are negligible.
+
+\begin{enumerate}[label=(\alph*)]
+\item Derive the worst-case diametrical position-tolerance budget available to the two mating patterns. \qmarks{3}
+\item If the base pattern is assigned position \dia$0.18$, determine the maximum position tolerance that may be assigned to the cover at MMC. \qmarks{2}
+\item Assess a proposed allocation of \dia$0.20$ to the base and \dia$0.35$ to the cover. \qmarks{2}
+\item Explain how bonus tolerance may improve the acceptance of an individual assembly without increasing the worst-case MMC design budget. \qmarks{1}
+\item State the principal features, including pin diameter, of a functional gage for the $0.32$ cover allocation from part (b). \qmarks{2}
+\end{enumerate}
+
+%====================================================================
+\question{Floating-fastener assembly}{Level II}
+
+Two plates are joined by a bolt that is free to float in clearance holes in both plates. Each hole has MMC size \dia$8.50$, and the bolt has maximum shank diameter \dia$8.00$. The patterns use functionally equivalent datum systems; assume a straight bolt, negligible tilt, and no other assembly constraints. Let the diametrical position tolerances assigned to the two hole patterns at MMC be $T_1$ and $T_2$.
+
+\begin{enumerate}[label=(\alph*)]
+\item Derive the condition on $T_1+T_2$ that guarantees worst-case assembly. \qmarks{3}
+\item Determine the maximum equal position tolerance that can be assigned to each plate. \qmarks{2}
+\item Assess the unequal allocation $T_1=0.60$ and $T_2=0.35$. \qmarks{2}
+\item For one assembly, the two actual hole sizes are \dia$8.65$ and \dia$8.70$. Determine the corresponding total position-error budget using the actual clearances. \qmarks{2}
+\item State the main reason this budget differs from that of a fixed-fastener assembly. \qmarks{1}
+\end{enumerate}
+
+%====================================================================
+\question{Simultaneous requirement}{Level II}
+
+Two separate hole patterns, $P$ and $Q$, are controlled by position relative to the same datum reference frame $A|B(\mathrm{MMB})|C$; datum feature $B$ is referenced at MMB in both controls. Its available clearance permits every stated $x$ shift. For this question, assume that a simultaneous requirement applies unless \textsc{SEP REQT} is stated. CMM analysis shows that pattern $P$ can conform only when the common datum-simulator shift in the $x$ direction lies in $[+0.08,+0.16]$, whereas pattern $Q$ can conform only for a shift in $[-0.12,-0.04]$.
+
+\begin{enumerate}[label=(\alph*)]
+\item Explain what the simultaneous requirement demands during functional inspection. \qmarks{2}
+\item Determine whether both patterns conform simultaneously. \qmarks{2}
+\item Explain why independent best fits for the two patterns are not valid under this requirement. \qmarks{2}
+\item Reassess the result if \textsc{SEP REQT} is added to both controls. \qmarks{2}
+\item Give one functional situation in which simultaneous control of the two patterns is necessary. \qmarks{2}
+\end{enumerate}
+
+%====================================================================
+\question{Profile with datum targets}{Level II}
+
+A thin cast housing is established on three primary datum targets $A_1,A_2,A_3$, two secondary targets $B_1,B_2$, and one tertiary target $C_1$. Its exterior is controlled by an equally disposed surface profile tolerance of $1.20$ relative to $A|B|C$. CMM deviations, after alignment to the datum targets, are summarized below.
+
+\begin{center}
+\begin{tabular}{c c c}
+\toprule
+Region & Minimum deviation & Maximum deviation\\
+\midrule
+$R_1$ & $-0.42$ & $+0.38$\\
+$R_2$ & $-0.55$ & $+0.44$\\
+$R_3$ & $-0.48$ & $+0.61$\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{enumerate}[label=(\alph*)]
+\item State the profile boundaries and assess each region. \qmarks{3}
+\item A global best fit produces deviations from $-0.50$ to $+0.49$. Explain why that result cannot automatically replace the datum-target evaluation. \qmarks{2}
+\item State how the 3--2--1 target arrangement constrains the six rigid-body degrees of freedom. \qmarks{3}
+\item Propose an additional control for a small sealing pad that requires profile accuracy substantially tighter than the rest of the casting. \qmarks{2}
+\end{enumerate}
+
+%====================================================================
+\question{Runout diagnosis}{Level II}
+
+A cylindrical surface is inspected relative to datum axis $A$ with a common indicator zero. At three axial sections, the minimum, maximum, and mean radial readings over complete rotations are:
+
+\begin{center}
+\begin{tabular}{c c c c}
+\toprule
+Section & Minimum & Maximum & Mean\\
+\midrule
+$Z_1$ & $-0.010$ & $+0.030$ & $+0.010$\\
+$Z_2$ & $+0.010$ & $+0.050$ & $+0.030$\\
+$Z_3$ & $+0.030$ & $+0.070$ & $+0.050$\\
+\bottomrule
+\end{tabular}
+\end{center}
+The distance from $Z_1$ to $Z_3$ is $40$ mm. For this simplified exercise, assume these sections include the global radial extrema of the entire controlled surface.
+
+\begin{enumerate}[label=(\alph*)]
+\item Calculate circular runout at each section and assess a tolerance of $0.050$. \qmarks{2}
+\item Calculate total runout over the complete surface and assess a tolerance of $0.060$. \qmarks{2}
+\item Assuming approximately circular sections, use the change in mean radial reading to estimate the change in mean diameter from $Z_1$ to $Z_3$. \qmarks{2}
+\item Identify the likely axial form error suggested by the mean-value trend. \qmarks{2}
+\item Explain why circular runout alone can miss this error. \qmarks{2}
+\end{enumerate}
+
+%====================================================================
+\question{Position versus runout for bores}{Level II}
+
+A secondary bore must be coaxial with a primary datum bore $B$ and correctly oriented to mounting face $A$. Two alternative controls are being considered:
+\begin{center}
+\fc{\textsc{Position}}\,\fc{\dia$0.040$}\,\fc{A}\,\fc{B}
+\qquad or \qquad
+\fc{\textsc{Total runout}}\,\fc{$0.040$}\,\fc{B}.
+\end{center}
+CMM analysis reports a minimum required position-zone diameter of $0.036$ for the derived axis. Indicator data on the bore surface give total runout $0.052$ relative to datum axis $B$.
+
+\begin{enumerate}[label=(\alph*)]
+\item Assess the bore under the position control. \qmarks{2}
+\item Assess the bore under the total-runout control. \qmarks{2}
+\item Explain which aspects of geometry are controlled by axis position but not directly by total runout, and vice versa. \qmarks{3}
+\item Select the more appropriate control for a close-running seal surface and justify the choice. \qmarks{2}
+\item State one additional form control that may be useful if the bore itself must be exceptionally round and straight. \qmarks{1}
+\end{enumerate}
+
+%====================================================================
+\question{Sequential datum shift}{Level III}
+
+A hole $H$ has size \dia$8.00$--\dia$8.20$ and position
+\begin{center}
+\fc{\textsc{Position}}\,\fc{\dia$0.20$ \MMC}\,\fc{A}\,\fc{B \MMB}\,\fc{C \MMB}.
+\end{center}
+Datum feature $B$ is an internal slot of width $12.00$--$12.20$ whose MMB is $12.00$; its available shift acts only normal to the slot. Datum feature $C$ is an internal cylindrical hole of size \dia$10.00$--\dia$10.20$ with MMB \dia$10.00$. The measured mating sizes are $12.14$ for $B$ and \dia$10.12$ for $C$. For this simplified directional-shift model, use the full useful $B$ shift in the $y$ direction first, then the independent remaining useful $C$ shift in the $x$ direction; these quantities are stipulated rather than a general rule for all datum layouts. Hole $H$ measures \dia$8.08$ and has initial offsets $\Delta x=0.18$, $\Delta y=0.13$.
+
+\begin{enumerate}[label=(\alph*)]
+\item Calculate the radial position-zone radius available for hole $H$. \qmarks{2}
+\item Calculate the available datum shifts from $B$ and $C$ in their useful directions. \qmarks{2}
+\item Calculate the residual $x$ and $y$ offsets after optimal use of the shifts and determine the residual diametrical position error. \qmarks{3}
+\item Decide whether the feature passes before and after datum shift. \qmarks{2}
+\item Explain why lower-precedence datum $C$ cannot be used to undo a constraint already established by datum $B$. \qmarks{1}
+\end{enumerate}
+
+%====================================================================
+\question{Composite position with varying sizes}{Level III}
+
+Six holes have size \dia$6.00$--\dia$6.20$ and a composite positional control with an upper segment of \dia$0.40$ at MMC and a lower segment of \dia$0.15$ at MMC. The CMM reports the zone diameters required by each feature under one common upper framework and one common lower framework, each valid for the full pattern; the holes have not been fitted separately:
+
+\begin{center}
+\small
+\begin{tabular}{c c c c}
+\toprule
+Hole & Actual size & Upper zone required & Lower zone required\\
+\midrule
+1 & $6.02$ & $0.39$ & $0.14$\\
+2 & $6.05$ & $0.44$ & $0.18$\\
+3 & $6.08$ & $0.49$ & $0.22$\\
+4 & $6.10$ & $0.46$ & $0.27$\\
+5 & $6.14$ & $0.52$ & $0.26$\\
+6 & $6.18$ & $0.57$ & $0.31$\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{enumerate}[label=(\alph*)]
+\item For every hole, calculate the available upper- and lower-segment tolerances and record pass or fail for each segment. \qmarks{6}
+\item Identify the holes and segments that reject the pattern. \qmarks{2}
+\item State the acceptance decision for the complete pattern. \qmarks{1}
+\item Suggest one manufacturing correction targeted at the lower-segment failure. \qmarks{1}
+\end{enumerate}
+
+%====================================================================
+\question{Functional gage design}{Level III}
+
+A plate contains four holes of size \dia$8.00$--\dia$8.20$ controlled by
+\begin{center}
+\fc{\textsc{Position}}\,\fc{\dia$0.20$ \MMC}\,\fc{A}\,\fc{B \MMB}\,\fc{C}.
+\end{center}
+Datum $A$ is a plane. Datum feature $B$ is an external boss of size \dia$20.00$--\dia$20.10$ with no separate geometric control; use MMB \dia$20.10$. Datum $C$ is a side plane. One part has an actual mating size of \dia$20.04$ for datum boss $B$.
+
+\begin{enumerate}[label=(\alph*)]
+\item Determine the diameter of each fixed gage pin used to check the four controlled holes. \qmarks{2}
+\item Determine the internal diameter of the datum feature simulator for boss $B$. \qmarks{2}
+\item Calculate the maximum radial mobility within the datum-$B$ simulator for the stated actual mating size, before constraints from datum $C$ and the controlled-hole gage pins. \qmarks{2}
+\item Describe the order in which datums $A$, $B$, and $C$ are established in the functional gage. \qmarks{2}
+\item Explain why the gage pins are based on virtual condition rather than simply on the hole MMC size. \qmarks{2}
+\end{enumerate}
+
+%====================================================================
+\question{Assembly over a temperature range}{Level III}
+
+A fixed-fastener joint must assemble from $20^\circ$C to $100^\circ$C. At $20^\circ$C, the aluminium clearance hole has MMC diameter \dia$10.000$ and the steel fastener has maximum shank diameter \dia$9.500$. Use coefficients of thermal expansion $23\times10^{-6}/^\circ$C for aluminium and $12\times10^{-6}/^\circ$C for steel. Ignore thermal change of the basic pattern dimensions, fastener tilt, and thread clearance; assume equivalent assembly datums. The sum of the assigned diametrical position tolerances at MMC is $0.505$.
+
+\begin{enumerate}[label=(\alph*)]
+\item Calculate the worst-case assembly clearance budget at $20^\circ$C and assess the tolerance allocation. \qmarks{2}
+\item Calculate the minimum hole and maximum fastener diameters at $100^\circ$C. \qmarks{3}
+\item Determine the hot assembly-clearance budget and reassess the allocation. \qmarks{2}
+\item Explain why a design that passes only at the high-temperature condition is unacceptable for the stated requirement. \qmarks{1}
+\item If a design margin of $0.050$ is required at $20^\circ$C and the base pattern uses position \dia$0.180$, determine the maximum cover-pattern tolerance. \qmarks{2}
+\end{enumerate}
+
+%====================================================================
+\question{Profile and machining stock}{Level III}
+
+Five points on a forged surface are measured relative to the final true profile. Their outward deviations are
+\[
+0.36,\quad 0.42,\quad 0.51,\quad 0.47,\quad 0.33.
+\]
+A subsequent operation removes a uniform normal stock thickness $s$ from the complete surface. The finished surface must satisfy an equally disposed profile tolerance of $0.30$; hence every final deviation must lie between $-0.15$ and $+0.15$.
+
+\begin{enumerate}[label=(\alph*)]
+\item Derive the interval of uniform stock-removal values $s$ that makes all five points conform. \qmarks{4}
+\item Choose the value of $s$ that centres the worst deviations within the tolerance zone. \qmarks{2}
+\item Calculate the five final deviations for the selected value and identify the maximum absolute deviation. \qmarks{2}
+\item Assess the process if $s=0.50$ is used. \qmarks{2}
+\end{enumerate}
+
+%====================================================================
+\question{Position of a slot}{Level III}
+
+An internal slot has width $12.00$--$12.30$. Its derived median plane is controlled by
+\begin{center}
+\fc{\textsc{Position}}\,\fc{$0.20$ \MMC}\,\fc{A}\,\fc{B}\,\fc{C}.
+\end{center}
+The slot measures $12.18$. CMM evaluation shows that two parallel planes separated by $0.34$, symmetrically disposed about the true centre plane, are required to contain the complete derived median plane.
+
+\begin{enumerate}[label=(\alph*)]
+\item Calculate the bonus and total position tolerance for the slot. \qmarks{2}
+\item Assess the measured median-plane error. \qmarks{2}
+\item Calculate the virtual-condition width of the internal slot and the corresponding functional-gage tab width. \qmarks{2}
+\item Reassess the same median-plane error if the slot width were $12.05$. \qmarks{2}
+\item Explain why no diameter symbol appears before the positional tolerance for this feature. \qmarks{2}
+\end{enumerate}
+
+%====================================================================
+\question{Multiple datum reference frames}{Level III}
+
+A housing uses base face $A$, locating side $B$, and end face $C$ to establish the mounting datum reference frame. Bearing bore $D$ is controlled by position \dia$0.060$ relative to $A|B|C$. A seal counterbore is controlled by total runout $0.040$ relative to datum axis $D$, and an adjacent seal face is controlled by an equally disposed surface profile tolerance of $0.080$ relative to $D|A$. Inspection gives: bore-$D$ position $0.052$, counterbore total runout $0.036$, and seal-face profile error $0.074$, where the latter is twice the maximum absolute normal deviation from the true profile in its datum frame. For the additive estimate below, treat the counterbore as approximately cylindrical; use its runout value as a conservative diametrical surrogate for its axis offset relative to $D$.
+
+\begin{enumerate}[label=(\alph*)]
+\item Identify the three datum reference sets used and the functional relationship established by each. \qmarks{2}
+\item Assess all three reported geometric errors. \qmarks{2}
+\item Using the stipulated additive estimate, calculate both the specified worst-case diametrical relationship budget and the estimate from the reported measurements for the counterbore axis relative to the basic bore-$D$ location. \qmarks{2}
+\item Explain why controlling the counterbore directly to datum axis $D$ may be functionally superior to locating it only from $A|B|C$. \qmarks{2}
+\item Outline a practical CMM inspection sequence that preserves the intended datum relationships. \qmarks{2}
+\end{enumerate}
+
+%====================================================================
+\question{Conformance and capability}{Level III}
+
+A hole has size \dia$10.00$--\dia$10.20$ and position \dia$0.20$ at MMC. Five consecutive parts produce the following results. Define normalized tolerance utilization as
+\[
+u=\frac{\text{required position-zone diameter}}{0.20+\text{bonus tolerance}}.
+\]
+
+\begin{center}
+\begin{tabular}{c c c}
+\toprule
+Part & Actual hole size & Required position zone\\
+\midrule
+1 & $10.01$ & $0.18$\\
+2 & $10.04$ & $0.25$\\
+3 & $10.08$ & $0.24$\\
+4 & $10.12$ & $0.29$\\
+5 & $10.18$ & $0.35$\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{enumerate}[label=(\alph*)]
+\item Calculate $u$ for every part and state pass or fail. \qmarks{5}
+\item Identify the nonconforming part, if any. \qmarks{1}
+\item Identify the conforming part with the smallest remaining relative margin. \qmarks{2}
+\item Explain why a conventional capability index based on raw true-position values can mislead when bonus tolerance varies with size, and why five parts are insufficient for a long-term capability claim. \qmarks{2}
+\end{enumerate}
+
+%====================================================================
+\question{Critique an over-controlled drawing}{Level III}
+
+A preliminary drawing of a machined housing contains the following instructions:
+
+\begin{enumerate}[label=\arabic*.,leftmargin=8mm,itemsep=1pt]
+\item Four mounting holes are located by both basic dimensions and $\pm0.05$ coordinate dimensions, and also have position \dia$0.10$ relative to $A|B|C$.
+\item Datum $A$ is a small, rough as-cast pad, although the housing is mounted in service on a large machined base.
+\item A bearing bore is controlled by the legacy concentricity symbol at $0.020$ relative to an as-cast outside diameter designated datum $D$.
+\item The machined base has flatness $0.050$, parallelism $0.040$ to datum $A$, and surface profile $0.030$ to $A|B|C$ applied to the same complete surface.
+\item The bearing-bore axis has both perpendicularity \dia$0.030$ to $A$ and position \dia$0.020$ to $A|B|C$, with no stated functional reason for the looser orientation control.
+\end{enumerate}
+
+\begin{enumerate}[label=(\alph*)]
+\item Identify and explain at least five specification, datum-selection, redundancy, or inspectability problems. \qmarks{5}
+\item Propose a corrected datum strategy based on the functional mounting interfaces. \qmarks{2}
+\item Replace the concentricity requirement with a more inspectable control suitable for a rotating or sealing relationship. \qmarks{1}
+\item Rewrite the mounting-hole location scheme without double tolerancing. \qmarks{1}
+\item State when a separate tighter orientation refinement on the bearing axis would be justified in addition to position. \qmarks{1}
+\end{enumerate}
+
+%====================================================================
+\question{Bearing-housing capstone}{Level III}
+
+A bearing housing has the following functional features:
+
+\begin{itemize}[leftmargin=7mm,itemsep=1pt]
+\item a large machined mounting base;
+\item one round locating hole and one relieved locating slot used with dowels;
+\item a bearing bore of size \dia$50.000$--\dia$50.025$;
+\item a seal counterbore that must run concentrically with the bearing bore;
+\item a cover face normal to the bearing axis;
+\item six cover-bolt holes of size \dia$8.50$--\dia$8.80$.
+\end{itemize}
+
+The functional requirements are: bearing-axis location and orientation within \dia$0.040$ of the mounting locating system; bearing-bore cylindricity $0.010$; seal-counterbore total runout $0.030$ relative to the bearing bore; cover-face total runout $0.030$ measured axially over the full face relative to the bearing axis; bolt-pattern location \dia$0.300$ at MMC with hole-to-hole refinement \dia$0.100$ at MMC. Assume the bearing axis is basically normal to the mounting base, the slot's long direction lies along the line joining the two locating features, and the cover is located from the mounting datum system. Use RMB datum references for the strict mounting-axis location requirement.
+
+\begin{enumerate}[label=(\alph*)]
+\item Select and order the primary, secondary, and tertiary datum features, using the mounting base, round locating hole, and relieved slot. Justify the order. \qmarks{2}
+\item Write suitable controls for the bearing-bore axis and bearing-bore form. \qmarks{2}
+\item Designate the bearing bore as a datum feature and write suitable controls for the seal counterbore and cover face. \qmarks{2}
+\item Write a composite positional control for the six bolt holes that meets the stated location and refinement requirements. \qmarks{2}
+\item Calculate the upper-segment virtual-condition diameter of the bolt holes. \qmarks{1}
+\item State one reason for using the relieved slot rather than a second round dowel hole as the tertiary locator. \qmarks{1}
+\end{enumerate}
+
+\end{document}

@@ -19,6 +19,19 @@ test("all 30 graded GD&T questions and downloadable sources are published", () =
   assert.equal(pdf.subarray(0, 5).toString(), "%PDF-");
 });
 
+test("feature-control frames show GD&T symbols with readable names for assistive technology", () => {
+  const html = fs.readFileSync(pagePath, "utf8");
+  const cells = [...html.matchAll(/<span class="frame-cell frame-characteristic"><span class="frame-symbol" aria-hidden="true">([^<]+)<\/span><span class="visually-hidden">([^<]+)<\/span><\/span>/g)]
+    .map(([, symbol, label]) => `${label}:${symbol}`);
+  assert.equal(cells.length, 15);
+  assert.equal(cells.filter(cell => cell === "Position:⌖").length, 12);
+  for (const cell of ["Straightness:⏤", "Perpendicularity:⟂", "Total runout:⌰"]) {
+    assert.ok(cells.includes(cell), `Missing ${cell}`);
+  }
+  assert.doesNotMatch(html, /<span class="frame-cell"><span class="small-caps">(?:Position|Straightness|Perpendicularity|Total runout)<\/span><\/span>/);
+  assert.equal((html.match(/class="frame-row frame-row-inset"/g) || []).length, 2);
+});
+
 test("question-bank navigation and downloads resolve within the site", () => {
   const html = fs.readFileSync(pagePath, "utf8");
   const links = [...html.matchAll(/<a\b[^>]*\bhref="([^"]+)"/g)].map(match => match[1]);

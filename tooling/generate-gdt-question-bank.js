@@ -11,6 +11,12 @@ const bankDir = process.argv[3] ? path.resolve(process.argv[3]) : path.join(root
 const sourcePath = process.argv[2] ? path.resolve(process.argv[2]) : path.join(bankDir, "question-bank.tex");
 const source = fs.readFileSync(sourcePath, "utf8").replace(/\r\n/g, "\n");
 const unknownCommands = new Set();
+const frameCharacteristics = Object.freeze({
+  gdtPosition: { label: "Position", symbol: "⌖" },
+  gdtStraightness: { label: "Straightness", symbol: "⏤" },
+  gdtPerpendicularity: { label: "Perpendicularity", symbol: "⟂" },
+  gdtTotalRunout: { label: "Total runout", symbol: "⌰" },
+});
 
 function escapeHtml(value) {
   return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -113,25 +119,57 @@ function renderTable(center, questionNumber) {
   return `<div class="table-scroll" role="region" aria-label="Question ${questionNumber} data table" tabindex="0"><table>${head}${body}</table></div>`;
 }
 
+function renderFrameCell(content) {
+  const trimmed = content.trim();
+  const command = /^\\([A-Za-z]+)$/.exec(trimmed)?.[1];
+  const legacyLabel = /^\\textsc\{([^{}]+)\}$/.exec(trimmed)?.[1];
+  const characteristic = frameCharacteristics[command]
+    ?? Object.values(frameCharacteristics).find(({ label }) => label === legacyLabel);
+  if (characteristic) {
+    return `<span class="frame-cell frame-characteristic"><span class="frame-symbol" aria-hidden="true">${characteristic.symbol}</span><span class="visually-hidden">${characteristic.label}</span></span>`;
+  }
+  return `<span class="frame-cell">${renderInline(content)}</span>`;
+}
+
 function renderFrames(center) {
-  const clean = center.replace(/\\(?:small|noindent)\b/g, "").trim();
+  let clean = center.replace(/\\(?:small|noindent)\b/g, "").trim();
+  const tabularStart = clean.indexOf("\\begin{tabular}");
+  if (tabularStart >= 0) {
+    const columnsOpen = clean.indexOf("{", tabularStart + "\\begin{tabular}".length);
+    const columns = readBraced(clean, columnsOpen);
+    clean = clean.slice(0, tabularStart) + clean.slice(columns.end);
+    clean = clean.replace(/\\end\{tabular\}/, "");
+  }
   const rows = clean.split(/\\\\(?:\[[^\]]*\])?/).map(row => row.trim()).filter(Boolean);
   const result = [];
   for (const row of rows) {
     const pieces = row.split(/\\qquad\s*or\s*\\qquad/);
+    const rowContent = [];
+    let inset = false;
     for (let p = 0; p < pieces.length; p += 1) {
-      if (p) result.push('<span class="frame-or">or</span>');
-      const segment = pieces[p].replace(/\\hspace\{[^}]+\}/g, "");
+      if (p) rowContent.push('<span class="frame-or">or</span>');
+      let segment = pieces[p].trim();
+      if (segment.startsWith("\\phantom{")) {
+        const phantom = readBraced(segment, "\\phantom".length);
+        if (phantom.content.trim() !== "\\fc{\\gdtPosition}\\,") {
+          throw new Error(`Unsupported feature-control-frame phantom: ${phantom.content}`);
+        }
+        segment = segment.slice(phantom.end);
+        inset = true;
+      }
+      if (/\\hspace\*?\{[^}]+\}/.test(segment)) inset = true;
+      segment = segment.replace(/\\hspace\*?\{[^}]+\}/g, "");
       const cells = [];
       for (let i = 0; i < segment.length;) {
         const next = segment.indexOf("\\fc{", i);
         if (next < 0) break;
         const parsed = readBraced(segment, next + 3);
-        cells.push(`<span class="frame-cell">${renderInline(parsed.content)}</span>`);
+        cells.push(renderFrameCell(parsed.content));
         i = parsed.end;
       }
-      if (cells.length) result.push(`<div class="feature-control-frame" role="group" aria-label="Feature control frame">${cells.join("")}</div>`);
+      if (cells.length) rowContent.push(`<div class="feature-control-frame" role="group" aria-label="Feature control frame">${cells.join("")}</div>`);
     }
+    if (rowContent.length) result.push(`<div class="frame-row${inset ? " frame-row-inset" : ""}">${rowContent.join("")}</div>`);
   }
   return `<div class="frame-group">${result.join("\n")}</div>`;
 }
@@ -150,7 +188,7 @@ function renderBlocks(body, questionNumber) {
       output.push(`<div class="display-math">\\[${escapeHtml(block.slice(2, -2).trim())}\\]</div>`);
     } else if (match[1] === "center") {
       const middle = block.slice("\\begin{center}".length, -"\\end{center}".length);
-      output.push(middle.includes("\\begin{tabular}") ? renderTable(middle, questionNumber) : renderFrames(middle));
+      output.push(middle.includes("\\fc{") ? renderFrames(middle) : middle.includes("\\begin{tabular}") ? renderTable(middle, questionNumber) : renderFrames(middle));
     } else {
       output.push(renderList(block, match[1], questionNumber));
     }

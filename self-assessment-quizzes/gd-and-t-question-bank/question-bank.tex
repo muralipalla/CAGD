@@ -10,6 +10,8 @@
 \usepackage{fancyhdr}
 \usepackage{microtype}
 \usepackage{lastpage}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
 
 \definecolor{navy}{RGB}{38,48,92}
 \definecolor{softgray}{RGB}{242,243,247}
@@ -33,6 +35,29 @@
 \newcommand{\MMB}{\MMC}
 \newcommand{\LMC}{\raisebox{0.08ex}{\textcircled{\scriptsize L}}}
 \newcommand{\PZT}{\raisebox{0.08ex}{\textcircled{\scriptsize P}}}
+% Geometric characteristic symbols (Unicode: position U+2316,
+% straightness U+23E4, perpendicularity U+27C2, total runout U+2330).
+% Vector drawings keep the symbols reliable in pdfLaTeX and in the PDF.
+\newcommand{\gdtPosition}{%
+  \tikz[baseline=-0.15ex,x=1ex,y=1ex,line width=0.55pt]{%
+    \draw (0.75,0.75) circle[radius=0.49];%
+    \draw (0,0.75)--(1.5,0.75);%
+    \draw (0.75,0)--(0.75,1.5);%
+  }%
+}
+\newcommand{\gdtStraightness}{\rule[0.55ex]{1.5ex}{0.55pt}}
+\newcommand{\gdtPerpendicularity}{%
+  \tikz[baseline=-0.15ex,x=1ex,y=1ex,line width=0.55pt]{%
+    \draw (0,0.25)--(1.5,0.25);%
+    \draw (0.75,0.25)--(0.75,1.5);%
+  }%
+}
+\newcommand{\gdtTotalRunout}{%
+  \tikz[baseline=-0.15ex,x=1ex,y=1ex,line width=0.55pt]{%
+    \draw[-{Stealth[length=2.4pt,width=2pt]}] (0,0.10)--(1.15,1.25);%
+    \draw[-{Stealth[length=2.4pt,width=2pt]}] (0.55,0.10)--(1.70,1.25);%
+  }%
+}
 \newcommand{\fc}[1]{%
   \fbox{\rule[-0.55ex]{0pt}{2.45ex}\hspace{0.32em}#1\hspace{0.32em}}%
 }
@@ -80,7 +105,7 @@ Level III: & Advanced synthesis and inspection (Questions 21--30)
 
 \section*{Instructions and conventions}
 \instructionbox{%
-Use ASME Y14.5-2018 (R2024) conventions unless a question states a simplifying assumption. All dimensions are in millimetres. Basic dimensions are theoretically exact. Unless stated otherwise, a quoted measured feature size is its actual mating size and all local sizes satisfy their limits. For coordinate-based position calculations, assume the stated offsets describe a straight axis parallel to its nominal direction unless tilt is specified. Show the principal steps for every numerical decision and state \emph{pass} or \emph{fail}. The boxed feature-control frames are teaching schematics: characteristic names replace geometric symbols. A circled M after a tolerance denotes MMC; after a datum letter it denotes MMB.}
+Use ASME Y14.5-2018 (R2024) conventions unless a question states a simplifying assumption. All dimensions are in millimetres. Basic dimensions are theoretically exact. Unless stated otherwise, a quoted measured feature size is its actual mating size and all local sizes satisfy their limits. For coordinate-based position calculations, assume the stated offsets describe a straight axis parallel to its nominal direction unless tilt is specified. Show the principal steps for every numerical decision and state \emph{pass} or \emph{fail}. The boxed feature-control frames use geometric characteristic symbols. A circled M after a tolerance denotes MMC; after a datum letter it denotes MMB.}
 
 \begin{itemize}[leftmargin=7mm,itemsep=2pt]
 \item A diametrical position error based on coordinate offsets is
@@ -140,7 +165,7 @@ T_{\mathrm{pos}}=2\sqrt{(\Delta x)^2+(\Delta y)^2}.
 
 A plate contains a through-hole of size \dia$12.00$--\dia$12.25$. Its location is defined by basic dimensions and controlled by
 \begin{center}
-\fc{\textsc{Position}}\,\fc{\dia$0.20$ \MMC}\,\fc{A}\,\fc{B}\,\fc{C}.
+\fc{\gdtPosition}\,\fc{\dia$0.20$ \MMC}\,\fc{A}\,\fc{B}\,\fc{C}.
 \end{center}
 The measured hole size is \dia$12.16$, and the axis is displaced from true position by $\Delta x=+0.12$ and $\Delta y=-0.10$.
 
@@ -184,7 +209,7 @@ Assume that the reported values are already expressed relative to the appropriat
 
 A shaft has size \dia$19.90$--\dia$20.00$ and the derived median line is controlled by
 \begin{center}
-\fc{\textsc{Straightness}}\,\fc{\dia$0.08$ \MMC}.
+\fc{\gdtStraightness}\,\fc{\dia$0.08$ \MMC}.
 \end{center}
 For one part, the actual mating size is \dia$19.94$, and the smallest cylindrical zone that contains the derived median line has diameter $0.125$.
 
@@ -201,7 +226,7 @@ For one part, the actual mating size is \dia$19.94$, and the smallest cylindrica
 
 A \dia$8.00$--\dia$8.25$ hole passes through a $30$-mm-thick bracket. Its axis is controlled by
 \begin{center}
-\fc{\textsc{Perpendicularity}}\,\fc{\dia$0.12$ \MMC}\,\fc{A}.
+\fc{\gdtPerpendicularity}\,\fc{\dia$0.12$ \MMC}\,\fc{A}.
 \end{center}
 The measured hole size is \dia$8.18$. The CMM determines that a cylindrical zone of diameter $0.24$, oriented perpendicular to datum $A$, is required to contain the complete derived axis.
 
@@ -281,7 +306,7 @@ $Z_2$ & $+.020$ & $+.031$ & $+.045$ & $+.038$ & $+.016$ & $+.001$ & $-.003$ & $+
 
 Four holes have size \dia$10.00$--\dia$10.25$ and position
 \begin{center}
-\fc{\textsc{Position}}\,\fc{\dia$0.25$ \MMC}\,\fc{A}\,\fc{B}\,\fc{C}.
+\fc{\gdtPosition}\,\fc{\dia$0.25$ \MMC}\,\fc{A}\,\fc{B}\,\fc{C}.
 \end{center}
 CMM results, all evaluated in the same datum reference frame, are:
 
@@ -323,7 +348,7 @@ A drawing locates a \dia$10.00$--\dia$10.20$ hole at basic coordinates $X=50$ an
 
 A controlled hole $H$ has size \dia$10.00$--\dia$10.25$ and position
 \begin{center}
-\fc{\textsc{Position}}\,\fc{\dia$0.20$ \MMC}\,\fc{A}\,\fc{B \MMB}\,\fc{C}.
+\fc{\gdtPosition}\,\fc{\dia$0.20$ \MMC}\,\fc{A}\,\fc{B \MMB}\,\fc{C}.
 \end{center}
 Datum feature $B$ is an internal cylindrical hole of size \dia$20.00$--\dia$20.20$. For this problem, its maximum-material boundary is \dia$20.00$. The actual mating size of $B$ is \dia$20.14$. Hole $H$ measures \dia$10.10$ and has coordinate offsets $\Delta x=0.18$, $\Delta y=0.06$. Assume the available datum shift can act in the most favourable radial direction.
 
@@ -340,7 +365,7 @@ Datum feature $B$ is an internal cylindrical hole of size \dia$20.00$--\dia$20.2
 
 A threaded hole in an $8$-mm-thick bracket must accept a long stud. The mounting face is datum $A$, and basic dimensions locate the hole from $B$ and $C$. Its straight axis is controlled by the schematic projected-zone frame
 \begin{center}
-\fc{\textsc{Position}}\,\fc{\dia$0.30$ \PZT\ $25$}\,\fc{A}\,\fc{B}\,\fc{C}.
+\fc{\gdtPosition}\,\fc{\dia$0.30$ \PZT\ $25$}\,\fc{A}\,\fc{B}\,\fc{C}.
 \end{center}
 The cylindrical zone projects $25$ above the mounting face. At that face, the axis has an offset vector $(0.04,0.03)$. Due to tilt, the additional displacement over the projected height is $(0.16,-0.04)$. Assume a straight axis, so its radial offset varies linearly over the projection.
 
@@ -357,8 +382,10 @@ The cylindrical zone projects $25$ above the mounting face. At that face, the ax
 
 A four-hole pattern has hole size \dia$10.00$--\dia$10.20$ and the composite control
 \begin{center}
-\fc{\textsc{Position}}\,\fc{\dia$0.40$ \MMC}\,\fc{A}\,\fc{B}\,\fc{C}\\[-0.5mm]
-\hspace{16mm}\fc{\dia$0.15$ \MMC}\,\fc{A}.
+\begin{tabular}{@{}l@{}}
+\fc{\gdtPosition}\,\fc{\dia$0.40$ \MMC}\,\fc{A}\,\fc{B}\,\fc{C}\\[-0.5mm]
+\hspace*{8mm}\fc{\dia$0.15$ \MMC}\,\fc{A}.
+\end{tabular}
 \end{center}
 All four holes initially measure \dia$10.10$. CMM evaluation using a single common framework for all holes in each segment reports that the upper pattern-locating zones each require at most \dia$0.46$, while the lower feature-relating zones each require at most \dia$0.22$. Do not fit each hole independently.
 
@@ -377,14 +404,18 @@ Consider two alternative specifications for the same hole pattern.
 
 \textbf{Scheme 1: composite control}
 \begin{center}
-\fc{\textsc{Position}}\,\fc{\dia$0.50$ \MMC}\,\fc{A}\,\fc{B}\,\fc{C}\\[-0.5mm]
-\hspace{16mm}\fc{\dia$0.15$ \MMC}\,\fc{A}\,\fc{B}.
+\begin{tabular}{@{}l@{}}
+\fc{\gdtPosition}\,\fc{\dia$0.50$ \MMC}\,\fc{A}\,\fc{B}\,\fc{C}\\[-0.5mm]
+\hspace*{8mm}\fc{\dia$0.15$ \MMC}\,\fc{A}\,\fc{B}.
+\end{tabular}
 \end{center}
 
 \textbf{Scheme 2: two separate single-segment controls}
 \begin{center}
-\fc{\textsc{Position}}\,\fc{\dia$0.50$ \MMC}\,\fc{A}\,\fc{B}\,\fc{C}\\[1mm]
-\fc{\textsc{Position}}\,\fc{\dia$0.15$ \MMC}\,\fc{A}\,\fc{B}.
+\begin{tabular}{@{}l@{}}
+\fc{\gdtPosition}\,\fc{\dia$0.50$ \MMC}\,\fc{A}\,\fc{B}\,\fc{C}\\[1mm]
+\fc{\gdtPosition}\,\fc{\dia$0.15$ \MMC}\,\fc{A}\,\fc{B}.
+\end{tabular}
 \end{center}
 
 \begin{enumerate}[label=(\alph*)]
@@ -489,9 +520,9 @@ The distance from $Z_1$ to $Z_3$ is $40$ mm. For this simplified exercise, assum
 
 A secondary bore must be coaxial with a primary datum bore $B$ and correctly oriented to mounting face $A$. Two alternative controls are being considered:
 \begin{center}
-\fc{\textsc{Position}}\,\fc{\dia$0.040$}\,\fc{A}\,\fc{B}
+\fc{\gdtPosition}\,\fc{\dia$0.040$}\,\fc{A}\,\fc{B}
 \qquad or \qquad
-\fc{\textsc{Total runout}}\,\fc{$0.040$}\,\fc{B}.
+\fc{\gdtTotalRunout}\,\fc{$0.040$}\,\fc{B}.
 \end{center}
 CMM analysis reports a minimum required position-zone diameter of $0.036$ for the derived axis. Indicator data on the bore surface give total runout $0.052$ relative to datum axis $B$.
 
@@ -508,7 +539,7 @@ CMM analysis reports a minimum required position-zone diameter of $0.036$ for th
 
 A hole $H$ has size \dia$8.00$--\dia$8.20$ and position
 \begin{center}
-\fc{\textsc{Position}}\,\fc{\dia$0.20$ \MMC}\,\fc{A}\,\fc{B \MMB}\,\fc{C \MMB}.
+\fc{\gdtPosition}\,\fc{\dia$0.20$ \MMC}\,\fc{A}\,\fc{B \MMB}\,\fc{C \MMB}.
 \end{center}
 Datum feature $B$ is an internal slot of width $12.00$--$12.20$ whose MMB is $12.00$; its available shift acts only normal to the slot. Datum feature $C$ is an internal cylindrical hole of size \dia$10.00$--\dia$10.20$ with MMB \dia$10.00$. The measured mating sizes are $12.14$ for $B$ and \dia$10.12$ for $C$. For this simplified directional-shift model, use the full useful $B$ shift in the $y$ direction first, then the independent remaining useful $C$ shift in the $x$ direction; these quantities are stipulated rather than a general rule for all datum layouts. Hole $H$ measures \dia$8.08$ and has initial offsets $\Delta x=0.18$, $\Delta y=0.13$.
 
@@ -553,7 +584,7 @@ Hole & Actual size & Upper zone required & Lower zone required\\
 
 A plate contains four holes of size \dia$8.00$--\dia$8.20$ controlled by
 \begin{center}
-\fc{\textsc{Position}}\,\fc{\dia$0.20$ \MMC}\,\fc{A}\,\fc{B \MMB}\,\fc{C}.
+\fc{\gdtPosition}\,\fc{\dia$0.20$ \MMC}\,\fc{A}\,\fc{B \MMB}\,\fc{C}.
 \end{center}
 Datum $A$ is a plane. Datum feature $B$ is an external boss of size \dia$20.00$--\dia$20.10$ with no separate geometric control; use MMB \dia$20.10$. Datum $C$ is a side plane. One part has an actual mating size of \dia$20.04$ for datum boss $B$.
 
@@ -599,7 +630,7 @@ A subsequent operation removes a uniform normal stock thickness $s$ from the com
 
 An internal slot has width $12.00$--$12.30$. Its derived median plane is controlled by
 \begin{center}
-\fc{\textsc{Position}}\,\fc{$0.20$ \MMC}\,\fc{A}\,\fc{B}\,\fc{C}.
+\fc{\gdtPosition}\,\fc{$0.20$ \MMC}\,\fc{A}\,\fc{B}\,\fc{C}.
 \end{center}
 The slot measures $12.18$. CMM evaluation shows that two parallel planes separated by $0.34$, symmetrically disposed about the true centre plane, are required to contain the complete derived median plane.
 

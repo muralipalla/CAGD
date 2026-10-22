@@ -220,12 +220,22 @@
 .material-symbol { white-space: nowrap; font-weight: 750; }
 
 .frame-group {
+  --characteristic-cell-width: 3rem;
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.35rem 0.8rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
   margin: 1.15rem 0;
 }
+
+.frame-row {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  max-width: 100%;
+}
+
+.frame-row-inset { margin-inline-start: calc(var(--characteristic-cell-width) + 2px); }
 
 .feature-control-frame {
   display: inline-flex;
@@ -242,6 +252,19 @@
 .frame-cell {
   padding: 0.3rem 0.5rem;
   white-space: nowrap;
+}
+
+.frame-characteristic {
+  flex: 0 0 var(--characteristic-cell-width);
+  width: var(--characteristic-cell-width);
+  text-align: center;
+}
+
+.frame-symbol {
+  font-family: "Segoe UI Symbol", "Noto Sans Symbols 2", "DejaVu Sans", sans-serif;
+  font-size: 1.3em;
+  font-weight: 500;
+  line-height: 1;
 }
 
 .frame-cell + .frame-cell { border-left: 2px solid var(--ink); }
@@ -328,6 +351,7 @@
   .question-card, .instructions-panel, .level-index { border-radius: 1rem; }
   .bank-actions .button { width: 100%; }
   .frame-group { gap: 0.3rem; }
+  .frame-row { gap: 0.45rem; }
 }
 
 @media print {

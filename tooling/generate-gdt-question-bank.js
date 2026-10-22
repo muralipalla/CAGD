@@ -5,11 +5,15 @@
 // Run: node tooling/generate-gdt-question-bank.js
 const fs = require("node:fs");
 const path = require("node:path");
+const crypto = require("node:crypto");
 
 const root = path.resolve(__dirname, "..");
 const bankDir = process.argv[3] ? path.resolve(process.argv[3]) : path.join(root, "self-assessment-quizzes", "gd-and-t-question-bank");
 const sourcePath = process.argv[2] ? path.resolve(process.argv[2]) : path.join(bankDir, "question-bank.tex");
 const source = fs.readFileSync(sourcePath, "utf8").replace(/\r\n/g, "\n");
+const stylesheetVersion = crypto.createHash("sha256")
+  .update(fs.readFileSync(path.join(bankDir, "question-bank.css")))
+  .digest("hex").slice(0, 12);
 const unknownCommands = new Set();
 const frameCharacteristics = Object.freeze({
   gdtPosition: { label: "Position", symbol: "⌖" },
@@ -263,7 +267,7 @@ const output = `<!doctype html>
   <meta name="theme-color" content="#fdf6ec">
   <title>CAD · GD&amp;T Question Bank</title>
   <link rel="stylesheet" href="../../assets/css/style.css">
-  <link rel="stylesheet" href="question-bank.css">
+  <link rel="stylesheet" href="question-bank.css?v=${stylesheetVersion}">
   <script src="../../assets/js/main.js" defer></script>
   <script>window.MathJax={tex:{inlineMath:[["\\\\(","\\\\)"]],displayMath:[["\\\\[","\\\\]"]]},options:{skipHtmlTags:["script","noscript","style","textarea","pre","code"]}};</script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-chtml.js" defer></script>

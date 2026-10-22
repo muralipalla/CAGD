@@ -105,7 +105,7 @@ Level III: & Advanced synthesis and inspection (Questions 21--30)
 
 \section*{Instructions and conventions}
 \instructionbox{%
-Use ASME Y14.5-2018 (R2024) conventions unless a question states a simplifying assumption. All dimensions are in millimetres. Basic dimensions are theoretically exact. Unless stated otherwise, a quoted measured feature size is its actual mating size and all local sizes satisfy their limits. For coordinate-based position calculations, assume the stated offsets describe a straight axis parallel to its nominal direction unless tilt is specified. Show the principal steps for every numerical decision and state \emph{pass} or \emph{fail}. The boxed feature-control frames use geometric characteristic symbols. A circled M after a tolerance denotes MMC; after a datum letter it denotes MMB.}
+Use ASME Y14.5-2018 (R2024) conventions unless a question states a simplifying assumption. All dimensions are in millimetres. Basic dimensions are theoretically exact. Unless stated otherwise, a quoted measured feature size is its actual mating size and all local sizes satisfy their limits. For coordinate-based position calculations, assume the stated offsets describe a straight axis parallel to its nominal direction unless tilt is specified. Show the principal steps for every numerical decision and state \emph{pass} or \emph{fail}. Equality with a tolerance limit passes; compare unrounded results. A quoted required position-zone diameter for an axis is evaluated about true position in the established datum reference frame, using only permitted common pattern or datum mobility; do not best-fit holes separately. The boxed feature-control frames use geometric characteristic symbols. A circled M after a tolerance denotes MMC; after a datum letter it denotes MMB.}
 
 \begin{itemize}[leftmargin=7mm,itemsep=2pt]
 \item A diametrical position error based on coordinate offsets is
@@ -180,21 +180,20 @@ The measured hole size is \dia$12.16$, and the axis is displaced from true posit
 %====================================================================
 \question{Flatness and straightness}{Level I}
 
-A machined face is controlled by flatness $0.070$. The middle longitudinal line element is additionally controlled by straightness $0.035$. A CMM reports the following deviations from an arbitrary reference plane:
+A machined face is controlled by flatness $0.070$. The middle longitudinal line element is additionally controlled by straightness $0.035$. A CMM reports signed normal deviations at four equally spaced $x$-stations on three equally spaced longitudinal lines. The deviations are reported in the respective minimum-zone orientations for the sampled surface and the middle line $y_2$. Treat these samples as the complete data for this exercise.
 
 \begin{center}
 \begin{tabular}{c*{4}{r}}
 \toprule
- & $x_1$ & $x_2$ & $x_3$ & $x_4$\\
+\multicolumn{5}{c}{Signed normal deviations (mm)}\\
+Line & $x_1$ & $x_2$ & $x_3$ & $x_4$\\
 \midrule
-$y_1$ & $+0.018$ & $+0.031$ & $+0.026$ & $+0.011$\\
-$y_2$ & $-0.006$ & $+0.022$ & $+0.040$ & $+0.019$\\
-$y_3$ & $-0.021$ & $-0.004$ & $+0.015$ & $+0.008$\\
+$y_1$ & $+0.040$ & $+0.031$ & $+0.026$ & $-0.021$\\
+$y_2$ & $-0.006$ & $+0.022$ & $+0.040$ & $-0.006$\\
+$y_3$ & $-0.021$ & $-0.004$ & $+0.015$ & $+0.040$\\
 \bottomrule
 \end{tabular}
 \end{center}
-
-Assume that the reported values are already expressed relative to the appropriate minimum-zone orientations.
 
 \begin{enumerate}[label=(\alph*)]
 \item Calculate the minimum separation of two parallel planes required to contain all measured points and assess flatness. \qmarks{3}
@@ -313,7 +312,7 @@ CMM results, all evaluated in the same datum reference frame, are:
 \begin{center}
 \begin{tabular}{c c c}
 \toprule
-Hole & Actual size & Required position-zone diameter\\
+Hole & Actual size (mm) & Required position-zone diameter (mm)\\
 \midrule
 1 & $10.04$ & $0.22$\\
 2 & $10.12$ & $0.34$\\
@@ -387,7 +386,7 @@ A four-hole pattern has hole size \dia$10.00$--\dia$10.20$ and the composite con
 \hspace*{8mm}\fc{\dia$0.15$ \MMC}\,\fc{A}.
 \end{tabular}
 \end{center}
-All four holes initially measure \dia$10.10$. CMM evaluation using a single common framework for all holes in each segment reports that the upper pattern-locating zones each require at most \dia$0.46$, while the lower feature-relating zones each require at most \dia$0.22$. Do not fit each hole independently.
+All four holes initially measure \dia$10.10$. From one admissible simultaneous fit of the common upper and lower frameworks to all four holes, the CMM reports that the upper pattern-locating zones each require at most \dia$0.46$, while the lower feature-relating zones each require at most \dia$0.22$. Do not fit each hole independently.
 
 \begin{enumerate}[label=(\alph*)]
 \item Calculate the available upper- and lower-segment tolerances at the measured hole size. \qmarks{2}
@@ -554,13 +553,20 @@ Datum feature $B$ is an internal slot of width $12.00$--$12.20$ whose MMB is $12
 %====================================================================
 \question{Composite position with varying sizes}{Level III}
 
-Six holes have size \dia$6.00$--\dia$6.20$ and a composite positional control with an upper segment of \dia$0.40$ at MMC and a lower segment of \dia$0.15$ at MMC. The CMM reports the zone diameters required by each feature under one common upper framework and one common lower framework, each valid for the full pattern; the holes have not been fitted separately:
+Six holes have size \dia$6.00$--\dia$6.20$. Datum $A$ is the mounting plane; $B$ and $C$ are the in-plane locating datums. The pattern has the composite position control
+\begin{center}
+\begin{tabular}{@{}l@{}}
+\fc{\gdtPosition}\,\fc{\dia$0.40$ \MMC}\,\fc{A}\,\fc{B}\,\fc{C}\\[-0.5mm]
+\hspace*{8mm}\fc{\dia$0.15$ \MMC}\,\fc{A}.
+\end{tabular}
+\end{center}
+From one admissible simultaneous fit of the common upper and lower frameworks to all six holes, the CMM reports the required zone diameters below. The holes have not been fitted separately.
 
 \begin{center}
 \small
 \begin{tabular}{c c c c}
 \toprule
-Hole & Actual size & Upper zone required & Lower zone required\\
+Hole & Actual size (mm) & Upper zone required (mm) & Lower zone required (mm)\\
 \midrule
 1 & $6.02$ & $0.39$ & $0.14$\\
 2 & $6.05$ & $0.44$ & $0.18$\\

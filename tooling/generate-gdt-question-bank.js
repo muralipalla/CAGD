@@ -109,18 +109,22 @@ function renderList(block, kind, questionNumber) {
 function renderTable(center, questionNumber) {
   const match = /\\begin\{tabular\}\{[^\n]+\}([\s\S]*?)\\end\{tabular\}/.exec(center);
   if (!match) throw new Error(`Question ${questionNumber}: malformed table`);
-  const rows = match[1]
+  const rawRows = match[1]
     .replace(/\\(?:toprule|midrule|bottomrule|small)\b/g, "")
     .split(/\\\\(?:\[[^\]]*\])?/)
     .map(row => row.trim())
-    .filter(Boolean)
+    .filter(Boolean);
+  const spanningHeader = /^\\multicolumn\{(\d+)\}\{[^{}]+\}\{([^{}]+)\}$/.exec(rawRows[0]);
+  const caption = spanningHeader ? renderInline(spanningHeader[2]) : "";
+  const rows = (spanningHeader ? rawRows.slice(1) : rawRows)
     .map(row => row.split("&").map(cell => renderInline(cell.trim())));
   if (rows.length < 2) throw new Error(`Question ${questionNumber}: table has no data`);
   const width = rows[0].length;
+  if (spanningHeader && Number(spanningHeader[1]) !== width) throw new Error(`Question ${questionNumber}: table heading span does not match columns`);
   if (rows.some(row => row.length !== width)) throw new Error(`Question ${questionNumber}: inconsistent table columns`);
   const head = `<thead><tr>${rows[0].map(cell => `<th scope="col">${cell}</th>`).join("")}</tr></thead>`;
   const body = `<tbody>${rows.slice(1).map(row => `<tr>${row.map(cell => `<td>${cell}</td>`).join("")}</tr>`).join("")}</tbody>`;
-  return `<div class="table-scroll" role="region" aria-label="Question ${questionNumber} data table" tabindex="0"><table>${head}${body}</table></div>`;
+  return `<div class="table-scroll" role="region" aria-label="Question ${questionNumber} data table" tabindex="0"><table>${caption ? `<caption>${caption}</caption>` : ""}${head}${body}</table></div>`;
 }
 
 function renderFrameCell(content) {

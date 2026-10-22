@@ -235,7 +235,10 @@
   max-width: 100%;
 }
 
-.frame-row-inset { margin-inline-start: calc(var(--characteristic-cell-width) + 2px); }
+.frame-row-inset {
+  margin-inline-start: calc(var(--characteristic-cell-width) + 2px);
+  margin-block-start: calc(-0.25rem - 2px);
+}
 
 .feature-control-frame {
   display: inline-flex;
@@ -352,6 +355,7 @@
   .bank-actions .button { width: 100%; }
   .frame-group { gap: 0.3rem; }
   .frame-row { gap: 0.45rem; }
+  .frame-row-inset { margin-block-start: calc(-0.3rem - 2px); }
 }
 
 @media print {

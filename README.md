@@ -6,7 +6,7 @@ A responsive, static learning website for computer-aided design fundamentals, ge
 
 - **Mathematical Foundations** — nine course-note modules on geometric transformations, curves, Bezier curves, Hermite curves, B-splines, surfaces, solid modeling, CAD software and data exchange, and CAD workflow, followed by standalone Rational Bezier Curves, Möbius Surface, General Sweep Surfaces, and rotation visualizations.
 - **Programming Modules** — synchronized Python/MATLAB code and JavaScript graphics for interpolation, Bezier curves, Hermite curves, B-spline basis functions, B-splines/NURBS, B-spline surfaces, and Coons patches.
-- **Self Assessment Quizzes** — a 16-question Geometry and Curves quiz, a graded 30-question GD&T bank, and an interactive GD&T concepts MCQ quiz.
+- **Self Assessment Quizzes** — a 16-question Geometry and Curves quiz, 30 GD&T questions, and an interactive GD&T concepts MCQ quiz.
 
 The site includes:
 
@@ -15,7 +15,7 @@ The site includes:
 - seven interactive curve and surface laboratories with Python/MATLAB code views;
 - the Sketch Constraints and Parametric Circular Patterns activities;
 - a comprehensive geometry and curves self-assessment quiz;
-- a printable GD&T question bank and an interactive concepts quiz.
+- printable GD&T questions and an interactive concepts quiz.
 
 ## Run locally
 
@@ -45,7 +45,7 @@ After creating the repository on GitHub:
 assets/                       Shared styles and small site-wide script
 cad-modules/                  CAD lesson hub and activities
 programming-modules/          Programming lesson hub and activities
-self-assessment-quizzes/      Quiz hub, GD&T question bank, and assessments
+self-assessment-quizzes/      Quiz hub, GD&T questions, and assessments
 .github/workflows/pages.yml   GitHub Pages deployment
 ```
 

@@ -332,18 +332,6 @@
 .numbered-list li p,
 .feature-list li p { display: inline; margin: 0; }
 
-.marks {
-  display: inline-block;
-  margin-left: 0.35rem;
-  color: var(--muted);
-  font-size: 0.85rem;
-  font-weight: 770;
-  white-space: nowrap;
-}
-
-.marks::before { content: "["; }
-.marks::after { content: "]"; }
-
 @media (max-width: 900px) {
   .level-index-grid { grid-template-columns: 1fr; }
   .level-back { justify-self: start; }

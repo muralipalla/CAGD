@@ -6,7 +6,7 @@ const test = require("node:test");
 const bankDir = path.resolve(__dirname, "..", "self-assessment-quizzes", "gd-and-t-question-bank");
 const pagePath = path.join(bankDir, "index.html");
 
-test("all 30 graded GD&T questions and downloadable sources are published", () => {
+test("all 30 GD&T questions and downloadable sources are published", () => {
   const html = fs.readFileSync(pagePath, "utf8");
   const tex = fs.readFileSync(path.join(bankDir, "question-bank.tex"), "utf8");
   const pdf = fs.readFileSync(path.join(bankDir, "question-bank.pdf"));
@@ -17,6 +17,20 @@ test("all 30 graded GD&T questions and downloadable sources are published", () =
     assert.match(html, new RegExp(`href="#question-${i}"`));
   }
   assert.equal(pdf.subarray(0, 5).toString(), "%PDF-");
+});
+
+test("the questions page uses its new title and shows no grading marks", () => {
+  const html = fs.readFileSync(pagePath, "utf8");
+  assert.match(html, /<title>CAD · GD&amp;T Questions<\/title>/);
+  assert.match(html, /<h1>GD&amp;T <em>Questions<\/em><\/h1>/);
+  assert.match(html, /href="question-bank\.pdf" download="GDandT_Questions\.pdf"/);
+  assert.match(html, /href="question-bank\.tex" download="GDandT_Questions\.tex"/);
+  assert.equal((html.match(/class="question-number">Question \d+<\/p>/g) || []).length, 30);
+  assert.doesNotMatch(html, /\b(?:\d+\s+marks?|graded)\b|class="marks"/i);
+  const home = fs.readFileSync(path.resolve(bankDir, "..", "..", "index.html"), "utf8");
+  const quizIndex = fs.readFileSync(path.resolve(bankDir, "..", "index.html"), "utf8");
+  assert.match(home, />GD&amp;T Questions<\/a>/);
+  assert.match(quizIndex, /<h2 id="gdt-bank-title">GD&amp;T Questions<\/h2>/);
 });
 
 test("feature-control frames show GD&T symbols with readable names for assistive technology", () => {

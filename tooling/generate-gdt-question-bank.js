@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 "use strict";
 
-// Regenerate the online bank from the reviewed LaTeX source copied beside it.
+// Regenerate the online questions from the reviewed LaTeX source copied beside it.
 // Run: node tooling/generate-gdt-question-bank.js
 const fs = require("node:fs");
 const path = require("node:path");
@@ -97,9 +97,9 @@ function renderList(block, kind, questionNumber) {
   const end = `\\end{${kind}}`;
   const content = block.slice(begin[0].length, -end.length);
   const items = content.split(/\\item\s*/).slice(1).map(item => {
-    const marks = /\\qmarks\{(\d+)\}/.exec(item);
+    // Tolerate older source copies while omitting grading annotations from the page.
     const clean = item.replace(/\\qmarks\{\d+\}/g, "").trim();
-    return `<li>${renderBlocks(clean, questionNumber)}${marks ? ` <span class="marks">${marks[1]} ${marks[1] === "1" ? "mark" : "marks"}</span>` : ""}</li>`;
+    return `<li>${renderBlocks(clean, questionNumber)}</li>`;
   });
   const numbered = kind === "enumerate" && /\\arabic/.test(begin[0]);
   const tag = kind === "itemize" ? "ul" : "ol";
@@ -213,8 +213,6 @@ if (matches.length !== 30) throw new Error(`Expected 30 questions; found ${match
 const questions = matches.map((match, index) => {
   const next = matches[index + 1]?.index ?? source.length;
   const body = source.slice(match.index + match[0].length, next);
-  const marks = [...body.matchAll(/\\qmarks\{(\d+)\}/g)].reduce((sum, m) => sum + Number(m[1]), 0);
-  if (marks !== 10) throw new Error(`Question ${index + 1} has ${marks} marks, expected 10`);
   return { number: index + 1, title: match[1], level: match[2], body };
 });
 
@@ -249,7 +247,7 @@ const questionSections = Object.entries(levelInfo).map(([level, [description]]) 
     <div class="section-heading"><div><p class="section-kicker">Questions ${level === "I" ? "1–10" : level === "II" ? "11–20" : "21–30"}</p><h2 id="level-${level}-title">Level ${level}: ${description}</h2></div><a class="level-back" href="#contents">Back to contents ↑</a></div>
     ${questions.filter(q => q.level === level).map(q => `
     <article class="question-card" id="question-${q.number}" aria-labelledby="question-${q.number}-title">
-      <div class="question-heading"><div><p class="question-number">Question ${q.number} · 10 marks</p><h3 id="question-${q.number}-title">${escapeHtml(q.title)}</h3></div><span class="level-badge">Level ${level}</span></div>
+      <div class="question-heading"><div><p class="question-number">Question ${q.number}</p><h3 id="question-${q.number}-title">${escapeHtml(q.title)}</h3></div><span class="level-badge">Level ${level}</span></div>
       <div class="question-content">${renderBlocks(q.body, q.number)}</div>
     </article>`).join("\n")}
   </section>`).join("\n");
@@ -267,9 +265,9 @@ const output = `<!doctype html>
   </script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Thirty graded GD&amp;T questions on form, orientation, position, datum systems, profile, runout, assembly, functional gaging, and inspection.">
+  <meta name="description" content="Thirty GD&amp;T questions on form, orientation, position, datum systems, profile, runout, assembly, functional gaging, and inspection.">
   <meta name="theme-color" content="#fdf6ec">
-  <title>CAD · GD&amp;T Question Bank</title>
+  <title>CAD · GD&amp;T Questions</title>
   <link rel="stylesheet" href="../../assets/css/style.css">
   <link rel="stylesheet" href="question-bank.css?v=${stylesheetVersion}">
   <script src="../../assets/js/main.js" defer></script>
@@ -284,11 +282,11 @@ const output = `<!doctype html>
       <div class="nav-links"><a href="../../cad-modules/index.html">Mathematical Foundations</a><a href="../../programming-modules/index.html">Programming Modules</a><a href="../index.html" aria-current="page">Self Assessment</a></div>
     </nav>
     <div class="page-hero">
-      <ol class="breadcrumb" aria-label="Breadcrumb"><li><a href="../../index.html">Home</a></li><li><a href="../index.html">Self Assessment</a></li><li aria-current="page">GD&amp;T Question Bank</li></ol>
-      <p class="eyebrow">Graded practice</p>
-      <h1>GD&amp;T <em>Question Bank</em></h1>
-      <p class="page-lead">Thirty ten-mark problems, from reading feature-control frames to designing datum schemes and functional inspection plans.</p>
-      <div class="bank-actions"><a class="button primary" href="#contents">Browse questions</a><a class="button secondary" href="question-bank.pdf" download>Download PDF</a><a class="button ghost" href="../gd-and-t-concepts/index.html">Try the concepts quiz</a></div>
+      <ol class="breadcrumb" aria-label="Breadcrumb"><li><a href="../../index.html">Home</a></li><li><a href="../index.html">Self Assessment</a></li><li aria-current="page">GD&amp;T Questions</li></ol>
+      <p class="eyebrow">Practice questions</p>
+      <h1>GD&amp;T <em>Questions</em></h1>
+      <p class="page-lead">Thirty problems, from reading feature-control frames to designing datum schemes and functional inspection plans.</p>
+      <div class="bank-actions"><a class="button primary" href="#contents">Browse questions</a><a class="button secondary" href="question-bank.pdf" download="GDandT_Questions.pdf">Download PDF</a><a class="button ghost" href="../gd-and-t-concepts/index.html">Try the concepts quiz</a></div>
     </div>
   </header>
   <main id="main-content">
@@ -296,8 +294,8 @@ const output = `<!doctype html>
       <div class="instructions-panel"><p class="section-kicker">Before you begin</p><h2 id="instructions-title">Instructions and conventions</h2>
       <p>${renderInline(instructionBody)}</p>
       ${instructionList}
-      <p class="practice-note">Allow about 25–30 minutes <strong>per question</strong>. Each question is worth 10 marks. This bank contains questions only; use the <a href="../gd-and-t-concepts/index.html">concepts quiz</a> for immediate feedback.</p>
-      <div class="bank-resource-links"><a href="question-bank.pdf" download>Printable PDF</a><a href="question-bank.tex" download>LaTeX source</a><a href="../../cad-modules/cad-workflow/index.html#gd-and-t">Review GD&amp;T lesson</a></div></div>
+      <p class="practice-note">Allow about 25–30 minutes <strong>per question</strong>. Use the <a href="../gd-and-t-concepts/index.html">concepts quiz</a> for immediate feedback.</p>
+      <div class="bank-resource-links"><a href="question-bank.pdf" download="GDandT_Questions.pdf">Printable PDF</a><a href="question-bank.tex" download="GDandT_Questions.tex">LaTeX source</a><a href="../../cad-modules/cad-workflow/index.html#gd-and-t">Review GD&amp;T lesson</a></div></div>
     </section>
     <section class="section compact" id="contents" aria-labelledby="contents-title">
       <div class="section-heading"><div><p class="section-kicker">Choose a question</p><h2 id="contents-title">Difficulty and coverage</h2></div><p>Use the levels to move from interpretation to design and inspection.</p></div>
@@ -305,7 +303,7 @@ const output = `<!doctype html>
     </section>
     ${questionSections}
   </main>
-  <footer class="site-footer"><p><strong>CAD</strong> · GD&amp;T Question Bank</p><ul class="footer-nav" aria-label="Footer navigation"><li><a href="../../index.html">Home</a></li><li><a href="../index.html">Self Assessment</a></li><li><a href="../gd-and-t-concepts/index.html">GD&amp;T Concepts Quiz</a></li><li><a href="#contents">Question contents</a></li></ul><p><a href="../../cad-modules/references/index.html#licensing">Licensing and Attributions</a> · Created by Murali Palla · <span data-year>2026</span></p></footer>
+  <footer class="site-footer"><p><strong>CAD</strong> · GD&amp;T Questions</p><ul class="footer-nav" aria-label="Footer navigation"><li><a href="../../index.html">Home</a></li><li><a href="../index.html">Self Assessment</a></li><li><a href="../gd-and-t-concepts/index.html">GD&amp;T Concepts Quiz</a></li><li><a href="#contents">Question contents</a></li></ul><p><a href="../../cad-modules/references/index.html#licensing">Licensing and Attributions</a> · Created by Murali Palla · <span data-year>2026</span></p></footer>
 </body>
 </html>
 `;

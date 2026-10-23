@@ -29,7 +29,8 @@ test("the questions page uses its new title and shows no grading marks", () => {
   assert.doesNotMatch(html, /\b(?:\d+\s+marks?|graded)\b|class="marks"/i);
   const home = fs.readFileSync(path.resolve(bankDir, "..", "..", "index.html"), "utf8");
   const quizIndex = fs.readFileSync(path.resolve(bankDir, "..", "index.html"), "utf8");
-  assert.match(home, />GD&amp;T Questions<\/a>/);
+  assert.doesNotMatch(home, />GD&amp;T Questions<\/a>/);
+  assert.match(home, />Open Self Assessment<\/a>/);
   assert.match(quizIndex, /<h2 id="gdt-bank-title">GD&amp;T Questions<\/h2>/);
 });
 

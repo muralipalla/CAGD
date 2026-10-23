@@ -25,7 +25,8 @@ test("every website page loads the Google tag exactly once", () => {
 
   for (const page of [
     "self-assessment-quizzes/gd-and-t-concepts/index.html",
-    "self-assessment-quizzes/gd-and-t-question-bank/index.html"
+    "self-assessment-quizzes/gd-and-t-question-bank/index.html",
+    "self-assessment-quizzes/solid-modeling/index.html"
   ]) {
     assert.ok(pages.includes(path.join(root, page)), `${page}: missing from the website`);
   }

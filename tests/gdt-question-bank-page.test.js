@@ -19,10 +19,10 @@ test("all 30 GD&T questions and downloadable sources are published", () => {
   assert.equal(pdf.subarray(0, 5).toString(), "%PDF-");
 });
 
-test("the questions page uses its new title and shows no grading marks", () => {
+test("the GD&T page uses its new title and shows no grading marks", () => {
   const html = fs.readFileSync(pagePath, "utf8");
-  assert.match(html, /<title>CAD · GD&amp;T Questions<\/title>/);
-  assert.match(html, /<h1>GD&amp;T <em>Questions<\/em><\/h1>/);
+  assert.match(html, /<title>CAD · GD&amp;T<\/title>/);
+  assert.match(html, /<h1>GD&amp;T<\/h1>/);
   assert.match(html, /href="question-bank\.pdf" download="GDandT_Questions\.pdf"/);
   assert.match(html, /href="question-bank\.tex" download="GDandT_Questions\.tex"/);
   assert.equal((html.match(/class="question-number">Question \d+<\/p>/g) || []).length, 30);
@@ -31,7 +31,7 @@ test("the questions page uses its new title and shows no grading marks", () => {
   const quizIndex = fs.readFileSync(path.resolve(bankDir, "..", "index.html"), "utf8");
   assert.doesNotMatch(home, />GD&amp;T Questions<\/a>/);
   assert.match(home, />Open Self Assessment<\/a>/);
-  assert.match(quizIndex, /<h2 id="gdt-bank-title">GD&amp;T Questions<\/h2>/);
+  assert.match(quizIndex, /<h2 id="gdt-bank-title">GD&amp;T<\/h2>/);
 });
 
 test("feature-control frames show GD&T symbols with readable names for assistive technology", () => {

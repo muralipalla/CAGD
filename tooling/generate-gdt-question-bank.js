@@ -267,7 +267,7 @@ const output = `<!doctype html>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Thirty GD&amp;T questions on form, orientation, position, datum systems, profile, runout, assembly, functional gaging, and inspection.">
   <meta name="theme-color" content="#fdf6ec">
-  <title>CAD · GD&amp;T Questions</title>
+  <title>CAD · GD&amp;T</title>
   <link rel="stylesheet" href="../../assets/css/style.css">
   <link rel="stylesheet" href="question-bank.css?v=${stylesheetVersion}">
   <script src="../../assets/js/main.js" defer></script>
@@ -282,9 +282,9 @@ const output = `<!doctype html>
       <div class="nav-links"><a href="../../cad-modules/index.html">Mathematical Foundations</a><a href="../../programming-modules/index.html">Programming Modules</a><a href="../index.html" aria-current="page">Self Assessment</a></div>
     </nav>
     <div class="page-hero">
-      <ol class="breadcrumb" aria-label="Breadcrumb"><li><a href="../../index.html">Home</a></li><li><a href="../index.html">Self Assessment</a></li><li aria-current="page">GD&amp;T Questions</li></ol>
+      <ol class="breadcrumb" aria-label="Breadcrumb"><li><a href="../../index.html">Home</a></li><li><a href="../index.html">Self Assessment</a></li><li aria-current="page">GD&amp;T</li></ol>
       <p class="eyebrow">Practice questions</p>
-      <h1>GD&amp;T <em>Questions</em></h1>
+      <h1>GD&amp;T</h1>
       <p class="page-lead">Thirty problems, from reading feature-control frames to designing datum schemes and functional inspection plans.</p>
       <div class="bank-actions"><a class="button primary" href="#contents">Browse questions</a><a class="button secondary" href="question-bank.pdf" download="GDandT_Questions.pdf">Download PDF</a><a class="button ghost" href="../gd-and-t-concepts/index.html">Try the concepts quiz</a></div>
     </div>
@@ -303,7 +303,7 @@ const output = `<!doctype html>
     </section>
     ${questionSections}
   </main>
-  <footer class="site-footer"><p><strong>CAD</strong> · GD&amp;T Questions</p><ul class="footer-nav" aria-label="Footer navigation"><li><a href="../../index.html">Home</a></li><li><a href="../index.html">Self Assessment</a></li><li><a href="../gd-and-t-concepts/index.html">GD&amp;T Concepts Quiz</a></li><li><a href="#contents">Question contents</a></li></ul><p><a href="../../cad-modules/references/index.html#licensing">Licensing and Attributions</a> · Created by Murali Palla · <span data-year>2026</span></p></footer>
+  <footer class="site-footer"><p><strong>CAD</strong> · GD&amp;T</p><ul class="footer-nav" aria-label="Footer navigation"><li><a href="../../index.html">Home</a></li><li><a href="../index.html">Self Assessment</a></li><li><a href="../gd-and-t-concepts/index.html">GD&amp;T Quiz</a></li><li><a href="#contents">Question contents</a></li></ul><p><a href="../../cad-modules/references/index.html#licensing">Licensing and Attributions</a> · Created by Murali Palla · <span data-year>2026</span></p></footer>
 </body>
 </html>
 `;

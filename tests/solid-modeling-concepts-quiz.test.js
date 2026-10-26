@@ -47,7 +47,7 @@ test("Solid Modeling quiz scoring handles correct, wrong, unanswered and invalid
 test("quiz and hub are wired to real lesson sections", () => {
   const quizPage = fs.readFileSync(path.join(quizDir, "index.html"), "utf8");
   const hub = fs.readFileSync(path.resolve(quizDir, "..", "index.html"), "utf8");
-  assert.match(quizPage, /<h1>Solid Modeling <em>Concepts Quiz<\/em><\/h1>/);
+  assert.match(quizPage, /<h1>Solid Modeling <em>Quiz<\/em><\/h1>/);
   assert.match(quizPage, /src="quiz\.js"/);
   assert.match(quizPage, /href="quiz\.css"/);
   assert.match(hub, /href="solid-modeling\/index\.html"/);
